@@ -16,10 +16,12 @@ export const LoginContainer = styled.div`
     justify-content: center;
     margin: 30px 0;
     width: 90%;
+    max-width: 295.83px;
   }
 
   .containerFormLogin {
     width: 90%;
+    max-width: 295.83px;
     background-color: rgba(33, 37, 41, 1);
   }
   .ContainerTitleFormLogin {
@@ -95,5 +97,14 @@ export const LoginContainer = styled.div`
     color: #fff;
     border-radius: 3.2px;
     margin: 0 0 0 5%;
+  }
+
+  .containerBtnRedirectRegister {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 0 30px 0;
+    width: 90%;
+    gap: 10px;
   }
 `;

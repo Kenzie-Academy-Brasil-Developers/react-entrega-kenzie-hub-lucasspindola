@@ -2,12 +2,19 @@ import styled from "styled-components";
 export const RegisterContainer = styled.div`
   width: 100vw;
   min-height: 100vh;
+
   padding: 50px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #000000;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    width: 97.59px;
+    height: 16.9px;
+  }
   .returnBtn {
     width: 79.54px;
     height: 40px;
@@ -21,12 +28,15 @@ export const RegisterContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     margin: 30px 0;
     width: 90%;
+    max-width: 369px;
   }
 
   .containerForm {
     width: 90%;
+    max-width: 369px;
     background-color: rgba(33, 37, 41, 1);
   }
   .ContainerTitleForm {

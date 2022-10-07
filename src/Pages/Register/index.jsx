@@ -4,6 +4,9 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import logo from "../../Assets/Logo.png";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -14,6 +17,19 @@ const schema = yup.object().shape({
 });
 // Lides: Confirmar que as senhas são iguais, fazer objeto e mandar para API.
 export const Register = () => {
+  const navigate = useNavigate();
+  const sucessRegister = (message) => {
+    toast(message, {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
   const {
     register,
     handleSubmit,
@@ -25,16 +41,27 @@ export const Register = () => {
   const registerUser = (data) => {
     axios
       .post("https://kenziehub.herokuapp.com/users", data)
-      .then((response) => console.log(response.data))
-      .catch((err) => console.log(err));
+      .then((response) => {
+        console.log(response.data);
+        navigate("/login");
+        sucessRegister("Registro realizado com sucesso!");
+      })
+      .catch((err) => {
+        console.log(err);
+
+        sucessRegister(`${err.response.data.message}`);
+      });
+
     console.log(data);
   };
   return (
     <RegisterContainer>
       <div className="containerLogoAndBtnReturn">
-        <img src="" alt="LOGO" />
+        <img src={logo} alt="LOGO" />
 
-        <button className="returnBtn">Voltar</button>
+        <button className="returnBtn" onClick={() => navigate("/login")}>
+          Voltar
+        </button>
       </div>
 
       <div className="containerForm">
