@@ -5,6 +5,9 @@ export const ContainerDashboard = styled.main`
   height: 100vh;
   background-color: #000000;
   color: #fff;
+  main {
+    display: none;
+  }
   header {
     height: 72px;
     width: 100%;
@@ -41,10 +44,51 @@ export const ContainerDashboard = styled.main`
       margin: 0 5%;
     }
   }
-  /* .containerDashboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 90%;
-  } */
+  .moduleUser {
+    font-family: inter;
+    font-style: Mixed;
+    font-size: 12px;
+    color: #868e96;
+    font-weight: 400;
+  }
+
+  .explication {
+    font-family: inter;
+    font-style: Regular;
+    font-size: 16px;
+    line-height: 24px;
+    color: #868e96;
+    font-weight: 400;
+    color: #ffffff;
+  }
+  @media only screen and (min-width: 700px) {
+    main {
+      display: flex;
+      flex-direction: column;
+      padding: 30px 0;
+      margin: 0 20% 0 20%;
+      gap: 30px;
+    }
+    .containerInformationsProfile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      h2 {
+        margin: 0 0 0 20%;
+      }
+      p {
+        margin: 0 20% 0 0;
+      }
+    }
+    header {
+      img {
+        margin: 0 0 0 20%;
+      }
+      button {
+        margin: 0 20% 0 0;
+      }
+    }
+  }
 `;

@@ -8,21 +8,16 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../Assets/Logo.png";
 
 const schema = yup.object().shape({
-  email: yup.string().required().email(),
-  password: yup.string().required(),
+  email: yup
+    .string()
+    .required("Campo Obrigatório!")
+    .email("Digite um email valido!"),
+  password: yup.string().required("Campo Obrigatório!"),
 });
 export const Login = () => {
   const sucessLogin = (message) => {
     toast.success(message);
   };
-  // const redirectExistingLogin = () => {
-  //   const token = window.localStorage.getItem("authToken");
-  //   if (token !== undefined) {
-  //     navigate("/dashboard");
-  //     sucessLogin("Você já esta logado!");
-  //   }
-  // };
-  // redirectExistingLogin();
 
   const {
     register,
@@ -37,7 +32,6 @@ export const Login = () => {
     axios
       .post("https://kenziehub.herokuapp.com/sessions", data)
       .then((res) => {
-        // console.log(res.data);
         window.localStorage.clear();
         window.localStorage.setItem(
           "user-kenzieHub",
@@ -47,8 +41,10 @@ export const Login = () => {
         res.data.token && sucessLogin("Login realizado com sucesso!");
         navigate("/dashboard");
       })
-      .catch((err) => console.log(err));
-    // console.log(data);
+      .catch((err) => {
+        console.log(err);
+        toast.error(`Ops!Houve um erro`);
+      });
   };
   return (
     <LoginContainer>
@@ -68,6 +64,7 @@ export const Login = () => {
             type="text"
             {...register("email")}
           />
+          {<p>{errors.email?.message}</p>}
           <label htmlFor="password">Senha</label>
           <input
             id="password"
@@ -75,10 +72,11 @@ export const Login = () => {
             type="password"
             {...register("password")}
           />
-          <button className="btnLogin">Login</button>
-          <a className="ancoraLinkRegister" href="f">
+          {<p>{errors.password?.message}</p>}
+          <button className="btnLogin">Entrar</button>
+          <p className="ancoraLinkRegister" href="f">
             Ainda não possui uma conta?
-          </a>
+          </p>
         </form>
         <div className="containerBtnRedirectRegister">
           <button

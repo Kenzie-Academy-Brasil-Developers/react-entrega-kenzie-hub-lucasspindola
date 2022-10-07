@@ -7,15 +7,30 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import logo from "../../Assets/Logo.png";
-
+const testPassword = new RegExp(
+  "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+);
 const schema = yup.object().shape({
-  name: yup.string().required(),
-  email: yup.string().required().email(),
-  password: yup.string().required(),
-  passwordConfirm: yup.string(),
-  bio: yup.string().required(),
+  name: yup.string().required("Campo Obrigatório!"),
+  email: yup
+    .string()
+    .required("Campo Obrigatório!")
+    .email("Digite um email valido"),
+  password: yup
+    .string()
+    .required("Campo Obrigatório!")
+    .matches(
+      testPassword,
+      "E necessário no mínimo 8 dígitos, uma letra maiúsculos, uma minúscula e um caractere especial"
+    ),
+  passwordConfirm: yup
+    .string()
+    .required("Campo Obrigatório!")
+    .oneOf([yup.ref("password"), null], "As senhas precisam ser iguais!"),
+  bio: yup.string().required("Campo Obrigatório!"),
+  contact: yup.string().required("Campo Obrigatório!"),
 });
-// Lides: Confirmar que as senhas são iguais, fazer objeto e mandar para API.
+
 export const Register = () => {
   const navigate = useNavigate();
   const sucessRegister = (message) => {
@@ -37,7 +52,7 @@ export const Register = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  console.log(errors);
+
   const registerUser = (data) => {
     axios
       .post("https://kenziehub.herokuapp.com/users", data)
@@ -47,12 +62,8 @@ export const Register = () => {
         sucessRegister("Registro realizado com sucesso!");
       })
       .catch((err) => {
-        console.log(err);
-
-        sucessRegister(`${err.response.data.message}`);
+        toast.error(`Houve um erro: ${err.message}`);
       });
-
-    console.log(data);
   };
   return (
     <RegisterContainer>
@@ -77,6 +88,7 @@ export const Register = () => {
             type="text"
             {...register("name")}
           />
+          {<p>{errors.name?.message}</p>}
           <label htmlFor="email">Email</label>
           <input
             id="email"
@@ -84,6 +96,7 @@ export const Register = () => {
             type="text"
             {...register("email")}
           />
+          {<p> {errors.email?.message}</p>}
           <label htmlFor="password">Senha</label>
           <input
             id="password"
@@ -91,13 +104,15 @@ export const Register = () => {
             type="password"
             {...register("password")}
           />
+          {<p>{errors.password?.message}</p>}
           <label htmlFor="passwordConfirm">Confirmar Senha</label>
           <input
             id="passwordConfirm"
             placeholder="Confirme aqui sua senha"
             type="text"
-            // {...register()}
+            {...register("passwordConfirm")}
           />
+          {<p>{errors.passwordConfirm?.message}</p>}
           <label htmlFor="bio">Bio</label>
           <input
             id="bio"
@@ -105,6 +120,7 @@ export const Register = () => {
             type="text"
             {...register("bio")}
           />
+          {<p>{errors.bio?.message}</p>}
           <label htmlFor="contact">Contato</label>
           <input
             id="contact"
@@ -112,6 +128,7 @@ export const Register = () => {
             type="text"
             {...register("contact")}
           />
+          {<p>{errors.contact?.message}</p>}
           <label htmlFor="course_module">Selecionar módulo</label>
           <select name="" id="course_module" {...register("course_module")}>
             <option value="Primeiro módulo (Introdução ao Frontend)">

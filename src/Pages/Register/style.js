@@ -9,6 +9,19 @@ export const RegisterContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #000000;
+
+  p {
+    display: flex;
+    margin: 0 0 0 5%;
+    color: #f8f9fa;
+  }
+  label {
+    margin: 0 0 0 5%;
+    font-family: inter;
+    font-style: regular;
+    font-size: 9px;
+    color: #f8f9fa;
+  }
   img {
     max-width: 100%;
     max-height: 100%;
@@ -16,6 +29,7 @@ export const RegisterContainer = styled.div`
     height: 16.9px;
   }
   .returnBtn {
+    cursor: pointer;
     width: 79.54px;
     height: 40px;
     background-color: #212529;
@@ -45,6 +59,26 @@ export const RegisterContainer = styled.div`
     align-items: center;
     gap: 30px;
     padding: 30px 0;
+
+    h3 {
+      font-family: inter;
+      font-style: bold;
+      font-size: 18px;
+      line-height: 28px;
+      font-weight: 700;
+      color: #f8f9fa;
+      /* grey-0 */
+    }
+
+    span {
+      font-family: inter;
+      font-style: regular;
+      font-size: 12px;
+      line-height: 22px;
+      font-weight: 400;
+
+      color: #868e96;
+    }
   }
 
   form {
@@ -59,30 +93,45 @@ export const RegisterContainer = styled.div`
     margin: 0 0 0 5%;
   }
   input {
+    font-family: inter;
+    font-style: regular;
+    font-size: 12.99px;
+    line-height: 21.1px;
     width: 100%;
     height: 38px;
     border: none;
     background-color: rgba(52, 59, 65, 1);
-    color: #fff;
+    color: #868e96;
     /* grey-2 */
     margin: 0 5% 0 5%;
     border-radius: 3.2px;
+    padding: 8px;
+    font-weight: 400;
   }
+
   select {
+    cursor: pointer;
+    font-family: inter;
+    font-style: regular;
+    font-size: 12.99px;
+    line-height: 21.1px;
     width: 100%;
     height: 38px;
     border: none;
     background-color: rgba(52, 59, 65, 1);
-    color: #fff;
+    color: #868e96;
     /* grey-2 */
-    margin: 0 0 0 5%;
+    margin: 0 5% 0 5%;
     border-radius: 3.2px;
+    padding: 8px;
+    font-weight: 400;
   }
   option {
-    /* Editar depois */
+    cursor: pointer;
   }
 
   .btnRegister {
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,5 +143,8 @@ export const RegisterContainer = styled.div`
     color: #fff;
     border-radius: 3.2px;
     margin: 0 0 0 5%;
+  }
+  .btnRegister:hover {
+    background-color: rgba(255, 87, 127, 1);
   }
 `;

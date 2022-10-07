@@ -7,15 +7,7 @@ export const Dashboard = () => {
   const userData =
     JSON.parse(window.localStorage.getItem("user-kenzieHub")) || "";
   const sucessLogout = (message) => {
-    toast(message, {
-      position: "top-right",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    toast.success(message);
   };
   const navigate = useNavigate();
   const logout = () => {
@@ -34,8 +26,16 @@ export const Dashboard = () => {
           </header>
           <div className="containerInformationsProfile">
             <h2>Olá, {userData.name}</h2>
-            <p>{userData.course_module}</p>
+            <p className="moduleUser">{userData.course_module}</p>
           </div>
+
+          <main>
+            <span>Que pena! Estamos em desenvolvimento :(</span>
+            <span className="explication">
+              Nossa aplicação está em desenvolvimento, em breve teremos
+              novidades
+            </span>
+          </main>
         </ContainerDashboard>
       ) : (
         <Navigate to="/login" replace />
