@@ -2,10 +2,10 @@ import { LoginContainer } from "./style";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import logo from "../../Assets/Logo.png";
+import { useContext } from "react";
+import { UserContext } from "../../Contexts/UserContext";
 
 const schema = yup.object().shape({
   email: yup
@@ -15,9 +15,7 @@ const schema = yup.object().shape({
   password: yup.string().required("Campo Obrigatório!"),
 });
 export const Login = () => {
-  const sucessLogin = (message) => {
-    toast.success(message);
-  };
+  const { loginUser } = useContext(UserContext);
 
   const {
     register,
@@ -26,26 +24,9 @@ export const Login = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  // console.log(errors);
+
   const navigate = useNavigate();
-  const loginUser = (data) => {
-    axios
-      .post("https://kenziehub.herokuapp.com/sessions", data)
-      .then((res) => {
-        window.localStorage.clear();
-        window.localStorage.setItem(
-          "user-kenzieHub",
-          JSON.stringify(res.data.user)
-        );
-        window.localStorage.setItem("authToken", res.data.token);
-        res.data.token && sucessLogin("Login realizado com sucesso!");
-        navigate("/dashboard");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(`Ops!Houve um erro`);
-      });
-  };
+
   return (
     <LoginContainer>
       <div className="containerLogo">

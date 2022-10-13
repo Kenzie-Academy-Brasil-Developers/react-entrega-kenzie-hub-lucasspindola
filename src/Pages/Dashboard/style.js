@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 export const ContainerDashboard = styled.main`
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
   background-color: #000000;
   color: #fff;
   main {
-    display: none;
+    display: flex;
+    padding: 30px 0;
   }
   header {
     height: 72px;
@@ -19,6 +20,7 @@ export const ContainerDashboard = styled.main`
       margin: 0 5%;
     }
     button {
+      cursor: pointer;
       margin: 0 5%;
       height: 32px;
       width: 55.49px;
@@ -61,6 +63,30 @@ export const ContainerDashboard = styled.main`
     font-weight: 400;
     color: #ffffff;
   }
+  /* parte dois */
+  .containerTitleUl {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 40px;
+    align-items: center;
+    span {
+      margin: 0 0 0 5%;
+    }
+    button {
+      cursor: pointer;
+      margin: 0 5% 0 0;
+      background-color: #212529;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      font-size: 20px;
+      font-family: Inter;
+      font-style: semi bold;
+      line-height: 16px;
+    }
+  }
   @media only screen and (min-width: 700px) {
     main {
       display: flex;
@@ -88,6 +114,24 @@ export const ContainerDashboard = styled.main`
       }
       button {
         margin: 0 20% 0 0;
+      }
+    }
+
+    .containerTitleUl {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 40px;
+      span {
+        margin: 0 0 0 20%;
+      }
+      button {
+        margin: 0 20% 0 0;
+        background-color: #212529;
+        color: #fff;
+        width: 32px;
+        height: 32px;
       }
     }
   }

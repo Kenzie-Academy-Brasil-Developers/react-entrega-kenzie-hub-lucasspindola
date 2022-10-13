@@ -8,17 +8,21 @@ import { ToastContainer } from "react-toastify";
 import { Dashboard } from "./Pages/Dashboard";
 
 import "react-toastify/dist/ReactToastify.min.css";
+import { UserContextProvider } from "./Contexts/UserContext";
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<Navigate to={"/login"} />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
+
+      <UserContextProvider>
+        <Routes>
+          <Route path="/" element={<Navigate to={"/login"} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </UserContextProvider>
       <ToastContainer
         position="top-right"
         autoClose={1000}

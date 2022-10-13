@@ -18,6 +18,7 @@ img{
    width: 100vw;
    height: 100vh;
   }
+  ul{list-style: none;}
 `;
 
 export default GlobalStyle;

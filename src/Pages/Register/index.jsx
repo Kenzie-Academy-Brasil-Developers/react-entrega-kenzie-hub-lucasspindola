@@ -1,70 +1,16 @@
 import { RegisterContainer } from "./style";
-// Para o formulario-Instalar :yarn add yup react-hook-form @hookform/resolvers
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+
 import logo from "../../Assets/Logo.png";
-const testPassword = new RegExp(
-  "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
-);
-const schema = yup.object().shape({
-  name: yup.string().required("Campo Obrigatório!"),
-  email: yup
-    .string()
-    .required("Campo Obrigatório!")
-    .email("Digite um email valido"),
-  password: yup
-    .string()
-    .required("Campo Obrigatório!")
-    .matches(
-      testPassword,
-      "E necessário no mínimo 8 dígitos, uma letra maiúsculos, uma minúscula e um caractere especial"
-    ),
-  passwordConfirm: yup
-    .string()
-    .required("Campo Obrigatório!")
-    .oneOf([yup.ref("password"), null], "As senhas precisam ser iguais!"),
-  bio: yup.string().required("Campo Obrigatório!"),
-  contact: yup.string().required("Campo Obrigatório!"),
-});
+import { useContext } from "react";
+import { UserContext } from "../../Contexts/UserContext";
 
 export const Register = () => {
   const navigate = useNavigate();
-  const sucessRegister = (message) => {
-    toast(message, {
-      position: "top-right",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-
-  const registerUser = (data) => {
-    axios
-      .post("https://kenziehub.herokuapp.com/users", data)
-      .then((response) => {
-        console.log(response.data);
-        navigate("/login");
-        sucessRegister("Registro realizado com sucesso!");
-      })
-      .catch((err) => {
-        toast.error(`Houve um erro: ${err.message}`);
-      });
-  };
+  const { handleSubmit, registerUser, register, errors } =
+    useContext(UserContext);
   return (
     <RegisterContainer>
       <div className="containerLogoAndBtnReturn">
