@@ -26,7 +26,7 @@ export const Dashboard = () => {
             <button onClick={() => logout()}>Sair</button>
           </header>
           <div className="containerInformationsProfile">
-            <h2>Olá, {userData.name}</h2>
+            <h2>Olá, {userData}</h2>
             <p className="moduleUser">{userData.course_module}</p>
           </div>
           <div className="containerTitleUl">

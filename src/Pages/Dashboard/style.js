@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ContainerDashboard = styled.main`
   width: 100vw;
-  /* height: 100vh; */
+  min-height: 100vh;
   background-color: #000000;
   color: #fff;
   main {

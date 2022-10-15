@@ -1,64 +1,44 @@
 import { LiTech } from "./style";
-import { HiOutlineTrash } from "react-icons/hi";
+// import { CardTechLi } from "../CardTechsLi";
+import { CardTechLi } from "../CardTechsLi";
+// import { UserContext } from "../../Contexts/UserContext";
+// import { useContext } from "react";
+// import { useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
+// import { TechnologyRegister } from "../TechnologyRegister";
 
 export const ListOfTechnologies = () => {
-  return (
-    <LiTech>
-      <li>
-        <h3>React Js</h3>
+  // const { dataUser } = useContext(UserContext);
+  const [dataUserTechs, setDataUserTechs] = useState([]);
 
-        <div>
-          <span>Intermediario</span>
+  function updatedList() {
+    const token = window.localStorage.getItem("authToken");
 
-          <button>
-            <HiOutlineTrash />
-          </button>
-        </div>
-      </li>
-      <li>
-        <h3>React Js</h3>
+    token &&
+      axios
+        .get("https://kenziehub.herokuapp.com/profile", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setDataUserTechs([res.data.techs]);
+        })
+        .catch((err) => {});
+  }
+  updatedList();
 
-        <div>
-          <span>Intermediario</span>
-
-          <button>
-            <HiOutlineTrash />
-          </button>
-        </div>
-      </li>
-      <li>
-        <h3>React Js</h3>
-
-        <div>
-          <span>Intermediario</span>
-
-          <button>
-            <HiOutlineTrash />
-          </button>
-        </div>
-      </li>
-      <li>
-        <h3>React Js</h3>
-
-        <div>
-          <span>Intermediario</span>
-
-          <button>
-            <HiOutlineTrash />
-          </button>
-        </div>
-      </li>
-      <li>
-        <h3>React Js</h3>
-
-        <div>
-          <span>Intermediario</span>
-
-          <button>
-            <HiOutlineTrash />
-          </button>
-        </div>
-      </li>
-    </LiTech>
-  );
+  if (dataUserTechs.length !== 0) {
+    return (
+      <LiTech>
+        {dataUserTechs[0].map((tech) => (
+          <CardTechLi tech={tech} key={tech.id} />
+        ))}
+      </LiTech>
+    );
+  } else {
+    return <h1>Oii</h1>;
+  }
 };

@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -32,16 +32,26 @@ const schema = yup.object().shape({
 });
 
 export const UserContextProvider = ({ children }) => {
+  const [dataUser, setDataUser] = useState([]);
   const navigate = useNavigate();
+
   const loginUser = (data) => {
     axios
       .post("https://kenziehub.herokuapp.com/sessions", data)
       .then((res) => {
         window.localStorage.clear();
+
+        // Tirando do localStorage os dados,
+        // deixando apenas o nome para caso haja problema com api
+        // o nome pelo menos se mantenha.
         window.localStorage.setItem(
           "user-kenzieHub",
-          JSON.stringify(res.data.user)
+          JSON.stringify(res.data.user.name)
+          //   setDataUser([res.data.user.techs])
+          //   console.log(res.data.user.techs)
         );
+
+        setDataUser(res.data.token);
         window.localStorage.setItem("authToken", res.data.token);
         res.data.token && toast.success("Login realizado com sucesso!");
         navigate("/dashboard");
@@ -88,7 +98,15 @@ export const UserContextProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ loginUser, registerUser, register, handleSubmit, errors }}
+      value={{
+        loginUser,
+        registerUser,
+        register,
+        handleSubmit,
+        errors,
+        dataUser,
+        setDataUser,
+      }}
     >
       {children}
     </UserContext.Provider>

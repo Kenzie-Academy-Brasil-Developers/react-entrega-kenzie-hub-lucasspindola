@@ -9,6 +9,7 @@ import { Dashboard } from "./Pages/Dashboard";
 
 import "react-toastify/dist/ReactToastify.min.css";
 import { UserContextProvider } from "./Contexts/UserContext";
+import { TechnologyRegister } from "./Components/TechnologyRegister";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <GlobalStyle />
 
       <UserContextProvider>
+        <TechnologyRegister />
         <Routes>
           <Route path="/" element={<Navigate to={"/login"} />} />
           <Route path="/login" element={<Login />} />
