@@ -33,6 +33,7 @@ const schema = yup.object().shape({
 
 export const UserContextProvider = ({ children }) => {
   const [dataUser, setDataUser] = useState([]);
+  // const [modalRegister, setModalRegister] = useState(false);
   const navigate = useNavigate();
 
   const loginUser = (data) => {
@@ -96,6 +97,29 @@ export const UserContextProvider = ({ children }) => {
       });
   };
 
+  //  useEffect(() => {
+  //     (async () => {
+  //       const token = localStorage.getItem("@TOKEN");
+  //       if(token){
+  //         setGlobalLoading(true);
+  //         try {
+  //           const response = await coreApi.get("user/autologin", {
+  //             headers: {
+  //               auth: token,
+  //             }
+  //           })
+  //           setUser(response.data.user);
+  //           setFavoriteList(response.data.user.favoriteGames);
+  //           navigate(currentRoute ? currentRoute : "/dashboard");
+  //         } catch (error) {
+  //           localStorage.removeItem("@TOKEN");
+  //           navigate("/");
+  //         } finally {
+  //           setGlobalLoading(false);
+  //         }
+  //       }
+  //     })();
+  //   }, [])
   return (
     <UserContext.Provider
       value={{
@@ -106,6 +130,8 @@ export const UserContextProvider = ({ children }) => {
         errors,
         dataUser,
         setDataUser,
+        // modalRegister,
+        // setModalRegister,
       }}
     >
       {children}

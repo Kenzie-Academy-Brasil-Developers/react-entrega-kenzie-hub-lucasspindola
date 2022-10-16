@@ -3,7 +3,8 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import logo from "../../Assets/Logo.png";
 import { ListOfTechnologies } from "../../Components/ListOfTechnologies";
-export const Dashboard = () => {
+
+export const Dashboard = ({ modalRegister, setModalRegister }) => {
   const token = window.localStorage.getItem("authToken") || "";
   const userData =
     JSON.parse(window.localStorage.getItem("user-kenzieHub")) || "";
@@ -17,6 +18,7 @@ export const Dashboard = () => {
     navigate("/login");
     sucessLogout("Sua sessão foi encerrada com sucesso!");
   };
+
   return (
     <>
       {token ? (
@@ -31,7 +33,7 @@ export const Dashboard = () => {
           </div>
           <div className="containerTitleUl">
             <span>Tecnologias</span>
-            <button>+</button>
+            <button onClick={() => setModalRegister(!modalRegister)}>+</button>
           </div>
           <main>
             <ListOfTechnologies />

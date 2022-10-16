@@ -8,6 +8,8 @@ import axios from "axios";
 import { useState } from "react";
 // import { TechnologyRegister } from "../TechnologyRegister";
 
+// import { apiBaseKenzieHub } from "../../Services/api";
+
 export const ListOfTechnologies = () => {
   // const { dataUser } = useContext(UserContext);
   const [dataUserTechs, setDataUserTechs] = useState([]);
@@ -17,7 +19,7 @@ export const ListOfTechnologies = () => {
 
     token &&
       axios
-        .get("https://kenziehub.herokuapp.com/profile", {
+        .get(`https://kenziehub.herokuapp.com/profile`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,

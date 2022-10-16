@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-export const ContainerRegisterTech = styled.form`
+export const ContainerRegisterTech = styled.div`
   min-height: 274px;
+  /* height: 342px; */
+  width: 100%;
+  position: absolute;
+  top: 22%;
   background-color: #212529;
   display: flex;
   flex-direction: column;
@@ -12,6 +16,14 @@ export const ContainerRegisterTech = styled.form`
     display: flex;
     align-items: center;
   } */
+
+  .formRegister {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-around;
+  }
   .contains {
     width: 100%;
     display: flex;
@@ -91,6 +103,9 @@ export const ContainerRegisterTech = styled.form`
   @media only screen and (min-width: 700px) {
     height: 342px;
     width: 369px;
+
+    display: flex;
+    margin: 0 34%;
 
     /* height: 342px;
     width: 369px;

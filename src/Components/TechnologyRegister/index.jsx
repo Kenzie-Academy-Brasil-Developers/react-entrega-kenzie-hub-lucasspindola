@@ -1,12 +1,12 @@
 import { ContainerRegisterTech } from "./style";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { json } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../../Contexts/UserContext";
+import { toast } from "react-toastify";
+// import { useContext } from "react";
+// import { UserContext } from "../../Contexts/UserContext";
 
-export const TechnologyRegister = () => {
-  const { dataUser, setDataUser } = useContext(UserContext);
+export const TechnologyRegister = ({ setModalRegister }) => {
+  // const { dataUser, setDataUser } = useContext(UserContext);
 
   const {
     register,
@@ -27,38 +27,52 @@ export const TechnologyRegister = () => {
       })
       .then((res) => {
         console.log(res);
+        res && toast.success("Cadastro realizado com sucesso!");
+        setModalRegister(false);
       })
       .catch((err) => {
         console.log(err);
+        err.name &&
+          toast.error("Ops!!Verifique se você já tem a tecnologia cadastrada!");
       });
   };
-  // console.log(dataUser);
 
   return (
     // tag Form
     <ContainerRegisterTech onSubmit={handleSubmit(newTech)}>
       <div className="titleContainerTech">
         <h3>Cadastrar Tecnologia</h3>
-        <button className="btnExitRegister">X</button>
+        <button
+          type="click"
+          onClick={() => {
+            setModalRegister(false);
+          }}
+          className="btnExitRegister"
+        >
+          X
+        </button>
       </div>
-
-      <div className="contains">
-        <label htmlFor="title">Nome</label>
-        <input
-          id="title"
-          placeholder="Tecnologia a ser cadastrada"
-          {...register("title")}
-        />
-      </div>
-      <div className="contains">
-        <label>Selecionar Status</label>
-        <select id="" {...register("status")}>
-          <option value="Iniciante">Iniciante</option>
-          <option value="Intermediário">Intermediário</option>
-          <option value="Avançado">Avançado</option>
-        </select>
-      </div>
-      <button className="btnRegisterTech">Cadastrar</button>
+      <form className="formRegister">
+        <div className="contains">
+          <label htmlFor="title">Nome</label>
+          <input
+            id="title"
+            placeholder="Tecnologia a ser cadastrada"
+            {...register("title")}
+          />
+        </div>
+        <div className="contains">
+          <label>Selecionar Status</label>
+          <select id="" {...register("status")}>
+            <option value="Iniciante">Iniciante</option>
+            <option value="Intermediário">Intermediário</option>
+            <option value="Avançado">Avançado</option>
+          </select>
+        </div>
+        <button type="submit" className="btnRegisterTech">
+          Cadastrar
+        </button>
+      </form>
     </ContainerRegisterTech>
   );
 };
