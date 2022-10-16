@@ -1,19 +1,10 @@
 import { LiTech } from "./style";
-// import { CardTechLi } from "../CardTechsLi";
 import { CardTechLi } from "../CardTechsLi";
-// import { UserContext } from "../../Contexts/UserContext";
-// import { useContext } from "react";
-// import { useEffect } from "react";
+
 import axios from "axios";
 import { useState } from "react";
-// import { TechnologyRegister } from "../TechnologyRegister";
-
-// import { apiBaseKenzieHub } from "../../Services/api";
-
 export const ListOfTechnologies = () => {
-  // const { dataUser } = useContext(UserContext);
   const [dataUserTechs, setDataUserTechs] = useState([]);
-
   function updatedList() {
     const token = window.localStorage.getItem("authToken");
 

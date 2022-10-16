@@ -12,11 +12,6 @@ export const ContainerRegisterTech = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  /* .titleContainerTech {
-    display: flex;
-    align-items: center;
-  } */
-
   .formRegister {
     width: 100%;
     display: flex;
@@ -54,7 +49,6 @@ export const ContainerRegisterTech = styled.div`
     font-style: bold;
     line-height: 24px;
     font-weight: 700;
-    /* margin-bottom: 8px; */
   }
   .btnExitRegister {
     margin: 0 5%;
@@ -78,7 +72,6 @@ export const ContainerRegisterTech = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    /* width: 296px; */
     height: 40px;
     border-radius: 3px 3px 0 0;
     width: 100%;
@@ -95,7 +88,6 @@ export const ContainerRegisterTech = styled.div`
     height: 38px;
     border: none;
     background-color: #ff577f;
-    /* color-primary-Disable */
     color: #fff;
     border-radius: 3.2px;
     margin-bottom: 20px;
@@ -106,10 +98,5 @@ export const ContainerRegisterTech = styled.div`
 
     display: flex;
     margin: 0 34%;
-
-    /* height: 342px;
-    width: 369px;
-    position: absolute;
-    top: 30%; */
   }
 `;

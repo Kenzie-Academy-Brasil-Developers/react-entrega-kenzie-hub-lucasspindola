@@ -33,23 +33,16 @@ const schema = yup.object().shape({
 
 export const UserContextProvider = ({ children }) => {
   const [dataUser, setDataUser] = useState([]);
-  // const [modalRegister, setModalRegister] = useState(false);
   const navigate = useNavigate();
-
   const loginUser = (data) => {
     axios
       .post("https://kenziehub.herokuapp.com/sessions", data)
       .then((res) => {
         window.localStorage.clear();
-
-        // Tirando do localStorage os dados,
-        // deixando apenas o nome para caso haja problema com api
-        // o nome pelo menos se mantenha.
+        // Mantendo apenas o nome no LS
         window.localStorage.setItem(
           "user-kenzieHub",
           JSON.stringify(res.data.user.name)
-          //   setDataUser([res.data.user.techs])
-          //   console.log(res.data.user.techs)
         );
 
         setDataUser(res.data.token);
@@ -62,8 +55,6 @@ export const UserContextProvider = ({ children }) => {
         toast.error(`Ops!Houve um erro`);
       });
   };
-
-  //   const navigate = useNavigate();
   const sucessRegister = (message) => {
     toast(message, {
       position: "top-right",
@@ -97,29 +88,6 @@ export const UserContextProvider = ({ children }) => {
       });
   };
 
-  //  useEffect(() => {
-  //     (async () => {
-  //       const token = localStorage.getItem("@TOKEN");
-  //       if(token){
-  //         setGlobalLoading(true);
-  //         try {
-  //           const response = await coreApi.get("user/autologin", {
-  //             headers: {
-  //               auth: token,
-  //             }
-  //           })
-  //           setUser(response.data.user);
-  //           setFavoriteList(response.data.user.favoriteGames);
-  //           navigate(currentRoute ? currentRoute : "/dashboard");
-  //         } catch (error) {
-  //           localStorage.removeItem("@TOKEN");
-  //           navigate("/");
-  //         } finally {
-  //           setGlobalLoading(false);
-  //         }
-  //       }
-  //     })();
-  //   }, [])
   return (
     <UserContext.Provider
       value={{
@@ -130,8 +98,6 @@ export const UserContextProvider = ({ children }) => {
         errors,
         dataUser,
         setDataUser,
-        // modalRegister,
-        // setModalRegister,
       }}
     >
       {children}

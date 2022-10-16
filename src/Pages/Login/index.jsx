@@ -16,8 +16,7 @@ const schema = yup.object().shape({
 });
 export const Login = () => {
   const { loginUser } = useContext(UserContext);
-  const token = window.localStorage.getItem("authToken") || "";
-
+  // const token = window.localStorage.getItem("authToken") || "";
   const {
     register,
     handleSubmit,
@@ -27,13 +26,9 @@ export const Login = () => {
   });
 
   const navigate = useNavigate();
-  // Ta dando erro a condicional, travando api.
+  // <Navigate to="/" replace />
   return (
     <>
-      {/* {
-      token ? (
-        <Navigate to="/" replace />
-      ) : ( */}
       <LoginContainer>
         <div className="containerLogo">
           <img src={logo} alt="LOGO-KENZIE-HUB" />
@@ -77,7 +72,6 @@ export const Login = () => {
           </div>
         </div>
       </LoginContainer>
-      {/* )} */}
     </>
   );
 };

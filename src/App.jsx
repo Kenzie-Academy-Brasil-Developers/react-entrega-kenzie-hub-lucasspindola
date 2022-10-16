@@ -1,27 +1,19 @@
 import "./App.css";
 import GlobalStyle from "./Global/globalStyle";
-
-import { Routes, Route, Navigate } from "react-router-dom";
-import { Register } from "./Pages/Register";
-import { Login } from "./Pages/Login";
-import { ToastContainer } from "react-toastify";
-import { Dashboard } from "./Pages/Dashboard";
-
 import "react-toastify/dist/ReactToastify.min.css";
+import { ToastContainer } from "react-toastify";
+import { RoutesApp } from "./Components/RoutesApp";
 import { UserContextProvider } from "./Contexts/UserContext";
+import { TechsContextProvider } from "./Contexts/TechsContext";
 import { TechnologyRegister } from "./Components/TechnologyRegister";
 
 import { useState } from "react";
 function App() {
-  // const { modalRegister, setModalRegister } = useContext(UserContext);
-  // useEffect(() => {
-  //   setModalRegister(modalRegister);
-  // }, [modalRegister, setModalRegister]);
-
   const [modalRegister, setModalRegister] = useState(false);
   return (
     <>
       <GlobalStyle />
+      {/* <TechsContextProvider></TechsContextProvider> */}
 
       <UserContextProvider>
         {modalRegister === true ? (
@@ -29,22 +21,10 @@ function App() {
         ) : (
           <></>
         )}
-
-        {/* <TechnologyRegister /> */}
-        <Routes>
-          <Route path="/" element={<Navigate to={"/login"} />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/dashboard"
-            element={
-              <Dashboard
-                modalRegister={modalRegister}
-                setModalRegister={setModalRegister}
-              />
-            }
-          />
-        </Routes>
+        <RoutesApp
+          modalRegister={modalRegister}
+          setModalRegister={setModalRegister}
+        />
       </UserContextProvider>
       <ToastContainer
         position="top-right"
