@@ -11,11 +11,11 @@ export const CardTechLi = ({ tech }) => {
         },
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         res && toast.success("Deletado com sucesso!");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         err && toast.error("Ops, houve um erro, tente novamente!");
       });
   };

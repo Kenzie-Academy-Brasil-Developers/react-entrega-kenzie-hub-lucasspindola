@@ -1,27 +1,9 @@
 import { LiTech } from "./style";
 import { CardTechLi } from "../CardTechsLi";
-
-import axios from "axios";
-import { useState } from "react";
+import { useContext } from "react";
+import { TechsContext } from "../../Contexts/TechsContext";
 export const ListOfTechnologies = () => {
-  const [dataUserTechs, setDataUserTechs] = useState([]);
-  function updatedList() {
-    const token = window.localStorage.getItem("authToken");
-
-    token &&
-      axios
-        .get(`https://kenziehub.herokuapp.com/profile`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          setDataUserTechs([res.data.techs]);
-        })
-        .catch((err) => {});
-  }
-  updatedList();
+  const { dataUserTechs } = useContext(TechsContext);
 
   if (dataUserTechs.length !== 0) {
     return (
@@ -32,6 +14,6 @@ export const ListOfTechnologies = () => {
       </LiTech>
     );
   } else {
-    return <h1>Oii</h1>;
+    return <></>;
   }
 };

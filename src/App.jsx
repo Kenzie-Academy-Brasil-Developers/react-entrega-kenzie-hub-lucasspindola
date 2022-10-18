@@ -3,8 +3,6 @@ import GlobalStyle from "./Global/globalStyle";
 import "react-toastify/dist/ReactToastify.min.css";
 import { ToastContainer } from "react-toastify";
 import { RoutesApp } from "./Components/RoutesApp";
-import { UserContextProvider } from "./Contexts/UserContext";
-import { TechsContextProvider } from "./Contexts/TechsContext";
 import { TechnologyRegister } from "./Components/TechnologyRegister";
 
 import { useState } from "react";
@@ -13,19 +11,17 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      {/* <TechsContextProvider></TechsContextProvider> */}
 
-      <UserContextProvider>
-        {modalRegister === true ? (
-          <TechnologyRegister setModalRegister={setModalRegister} />
-        ) : (
-          <></>
-        )}
-        <RoutesApp
-          modalRegister={modalRegister}
-          setModalRegister={setModalRegister}
-        />
-      </UserContextProvider>
+      {modalRegister === true ? (
+        <TechnologyRegister setModalRegister={setModalRegister} />
+      ) : (
+        <></>
+      )}
+      <RoutesApp
+        modalRegister={modalRegister}
+        setModalRegister={setModalRegister}
+      />
+
       <ToastContainer
         position="top-right"
         autoClose={1000}

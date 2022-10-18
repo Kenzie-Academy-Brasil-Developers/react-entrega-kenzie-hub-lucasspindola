@@ -2,7 +2,7 @@ import { LoginContainer } from "./style";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from "../../Assets/Logo.png";
 import { useContext } from "react";
 import { UserContext } from "../../Contexts/UserContext";
@@ -16,7 +16,6 @@ const schema = yup.object().shape({
 });
 export const Login = () => {
   const { loginUser } = useContext(UserContext);
-  // const token = window.localStorage.getItem("authToken") || "";
   const {
     register,
     handleSubmit,

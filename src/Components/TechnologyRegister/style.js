@@ -1,11 +1,21 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+  min-height: 100vh;
+  min-width: 100vw;
+  position: absolute;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(33, 37, 41, 0.5);
+`;
 export const ContainerRegisterTech = styled.div`
   min-height: 274px;
   /* height: 342px; */
   width: 100%;
   position: absolute;
-  top: 22%;
+  /* top: 22%; */
   background-color: #212529;
   display: flex;
   flex-direction: column;
@@ -97,6 +107,6 @@ export const ContainerRegisterTech = styled.div`
     width: 369px;
 
     display: flex;
-    margin: 0 34%;
+    /* margin: 0 34%; */
   }
 `;

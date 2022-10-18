@@ -1,23 +1,12 @@
 import { ContainerDashboard } from "./style";
-import { useNavigate, Navigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Navigate } from "react-router-dom";
 import logo from "../../Assets/Logo.png";
 import { ListOfTechnologies } from "../../Components/ListOfTechnologies";
+import { TechsContext } from "../../Contexts/TechsContext";
+import { useContext } from "react";
 
 export const Dashboard = ({ modalRegister, setModalRegister }) => {
-  const token = window.localStorage.getItem("authToken") || "";
-  const userData =
-    JSON.parse(window.localStorage.getItem("user-kenzieHub")) || "";
-  const sucessLogout = (message) => {
-    toast.success(message);
-  };
-  const navigate = useNavigate();
-  const logout = () => {
-    window.localStorage.removeItem("authToken");
-    window.localStorage.removeItem("user-kenzieHub");
-    navigate("/login");
-    sucessLogout("Sua sessão foi encerrada com sucesso!");
-  };
+  const { logout, token, userData } = useContext(TechsContext);
 
   return (
     <>

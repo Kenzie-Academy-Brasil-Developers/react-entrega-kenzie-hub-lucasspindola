@@ -20,7 +20,6 @@ export const Register = () => {
           Voltar
         </button>
       </div>
-
       <div className="containerForm">
         <div className="ContainerTitleForm">
           <h3>Crie sua conta</h3>

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -34,6 +34,27 @@ const schema = yup.object().shape({
 export const UserContextProvider = ({ children }) => {
   const [dataUser, setDataUser] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    (async () => {
+      const token = window.localStorage.getItem("authToken");
+      if (token) {
+        try {
+          return await axios
+            .get(`https://kenziehub.herokuapp.com/profile`, {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then(() => navigate("/dashboard"));
+        } catch (error) {
+          localStorage.removeItem("authToken");
+          navigate("/");
+        }
+      }
+    })();
+  }, []);
   const loginUser = (data) => {
     axios
       .post("https://kenziehub.herokuapp.com/sessions", data)
@@ -52,7 +73,9 @@ export const UserContextProvider = ({ children }) => {
       })
       .catch((err) => {
         // console.log(err);
-        toast.error(`Ops!Houve um erro`);
+        toast.error(
+          `Ops!Houve um erro. Confira suas informações de cadastro e tente novamente.`
+        );
       });
   };
   const sucessRegister = (message) => {
@@ -84,7 +107,7 @@ export const UserContextProvider = ({ children }) => {
         sucessRegister("Registro realizado com sucesso!");
       })
       .catch((err) => {
-        toast.error(`Houve um erro: ${err.message}`);
+        toast.error(`Ops, houve um erro em nosso servidor. Tente novamente!`);
       });
   };
 
