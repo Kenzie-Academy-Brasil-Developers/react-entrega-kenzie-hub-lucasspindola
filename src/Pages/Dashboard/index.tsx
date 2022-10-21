@@ -15,7 +15,8 @@ export const Dashboard = ({
   setModalRegister,
 }: iTechnologyRegister) => {
   const { logout, token, userData, courseModule } = useContext(TechsContext);
-  let userName = userData.replace(/'/g, "");
+  // let userName = userData.replace(/'/g, "");
+
   return (
     <>
       {token ? (
@@ -25,8 +26,8 @@ export const Dashboard = ({
             <button onClick={() => logout()}>Sair</button>
           </header>
           <div className="containerInformationsProfile">
-            <h2>Olá, {userData.replace(/'/g, "")}</h2>
-            <p className="moduleUser">{courseModule}</p>
+            <h2>Olá, {JSON.parse(userData)}</h2>
+            <p className="moduleUser">{JSON.parse(courseModule)}</p>
           </div>
           <div className="containerTitleUl">
             <span>Tecnologias</span>

@@ -59,10 +59,11 @@ export const UserContextProvider = ({ children }: iUserContextProps) => {
     axios
       .post("https://kenziehub.herokuapp.com/sessions", data)
       .then((res) => {
+        console.log(res.data.user.name);
         window.localStorage.clear();
         // console.log(res.data.user.course_module);
         window.localStorage.setItem(
-          "user-kenzieHub",
+          "@user-kenzieHub",
           JSON.stringify(res.data.user.name)
         );
 

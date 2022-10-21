@@ -18,7 +18,8 @@ export const TechsContext = createContext<iTechContext>({} as iTechContext);
 
 export const TechsContextProvider = ({ children }: iTechsContextsProps) => {
   const token = window.localStorage.getItem("authToken") || "";
-  const userData = localStorage.getItem("user-kenzieHub") || "";
+  const userData = localStorage.getItem("@user-kenzieHub") || "";
+
   const courseModule = localStorage.getItem("course_module") || "";
   const sucessLogout = (message: string) => {
     toast.success(message);

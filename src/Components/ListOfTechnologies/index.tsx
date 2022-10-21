@@ -22,6 +22,6 @@ export const ListOfTechnologies = () => {
       </LiTech>
     );
   } else {
-    return <></>;
+    return <LiTech></LiTech>;
   }
 };
