@@ -1,16 +1,26 @@
-import { createContext, useState } from "react";
+import { ReactNode, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useEffect } from "react";
+interface iTechsContextsProps {
+  children: ReactNode;
+}
+interface iTechContext {
+  logout: () => void;
+  dataUserTechs: [];
+  setDataUserTechs: React.Dispatch<React.SetStateAction<[]>>;
+  token: string;
+  userData: string;
+  courseModule: string;
+}
+export const TechsContext = createContext<iTechContext>({} as iTechContext);
 
-export const TechsContext = createContext({});
-
-export const TechsContextProvider = ({ children }) => {
+export const TechsContextProvider = ({ children }: iTechsContextsProps) => {
   const token = window.localStorage.getItem("authToken") || "";
-  const userData =
-    JSON.parse(window.localStorage.getItem("user-kenzieHub")) || "";
-  const sucessLogout = (message) => {
+  const userData = localStorage.getItem("user-kenzieHub") || "";
+  const courseModule = localStorage.getItem("course_module") || "";
+  const sucessLogout = (message: string) => {
     toast.success(message);
   };
   const navigate = useNavigate();
@@ -22,7 +32,7 @@ export const TechsContextProvider = ({ children }) => {
   };
 
   // ListOfTechnologies
-  const [dataUserTechs, setDataUserTechs] = useState([]);
+  const [dataUserTechs, setDataUserTechs] = useState<[]>([]);
 
   useEffect(() => {
     function updatedList() {
@@ -36,8 +46,8 @@ export const TechsContextProvider = ({ children }) => {
               Authorization: `Bearer ${token}`,
             },
           })
-          .then((res) => {
-            setDataUserTechs([res.data.techs]);
+          .then((res: any) => {
+            setDataUserTechs(res.data.techs);
           })
           .catch((err) => {});
     }
@@ -46,7 +56,14 @@ export const TechsContextProvider = ({ children }) => {
 
   return (
     <TechsContext.Provider
-      value={{ logout, token, userData, dataUserTechs, setDataUserTechs }}
+      value={{
+        logout,
+        token,
+        userData,
+        dataUserTechs,
+        setDataUserTechs,
+        courseModule,
+      }}
     >
       {children}
     </TechsContext.Provider>

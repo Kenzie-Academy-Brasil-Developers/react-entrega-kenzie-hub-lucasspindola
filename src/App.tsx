@@ -7,7 +7,7 @@ import { TechnologyRegister } from "./Components/TechnologyRegister";
 
 import { useState } from "react";
 function App() {
-  const [modalRegister, setModalRegister] = useState(false);
+  const [modalRegister, setModalRegister] = useState<boolean>(false);
   return (
     <>
       <GlobalStyle />

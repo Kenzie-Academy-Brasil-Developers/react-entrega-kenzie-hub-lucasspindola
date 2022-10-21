@@ -1,7 +1,11 @@
+import { ReactNode } from "react";
 import { TechsContextProvider } from "../../Contexts/TechsContext";
 import { UserContextProvider } from "../../Contexts/UserContext";
 
-export const AllContexts = ({ children }) => {
+interface iAllContextChildren {
+  children: ReactNode;
+}
+export const AllContexts = ({ children }: iAllContextChildren) => {
   return (
     <UserContextProvider>
       <TechsContextProvider>{children}</TechsContextProvider>

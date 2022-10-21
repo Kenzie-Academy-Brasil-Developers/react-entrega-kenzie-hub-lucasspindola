@@ -3,15 +3,26 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const TechnologyRegister = ({ setModalRegister }) => {
+interface iTechnologyRegister {
+  setModalRegister: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export const TechnologyRegister = ({
+  setModalRegister,
+}: iTechnologyRegister) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<iNewTech>();
+  interface iNewTech {
+    status: string;
+    title: string;
+  }
 
-  const newTech = (dataTech) => {
+  // const { dataUserTechs, setDataUserTechs } = useContext(TechsContext);
+  const newTech = (dataTech: iNewTech) => {
     const token = window.localStorage.getItem("authToken");
+    // setDataUserTechs(...dataUserTechs)
     axios
       .post("https://kenziehub.herokuapp.com/users/techs", dataTech, {
         headers: {
@@ -20,23 +31,21 @@ export const TechnologyRegister = ({ setModalRegister }) => {
         },
       })
       .then((res) => {
-        // console.log(res);
         res && toast.success("Cadastro realizado com sucesso!");
         setModalRegister(false);
       })
       .catch((err) => {
-        // console.log(err);
         err.name &&
           toast.error("Ops!!Verifique se você já tem a tecnologia cadastrada!");
       });
   };
+
   return (
     <Container>
       <ContainerRegisterTech onSubmit={handleSubmit(newTech)}>
         <div className="titleContainerTech">
           <h3>Cadastrar Tecnologia</h3>
           <button
-            type="click"
             onClick={() => {
               setModalRegister(false);
             }}

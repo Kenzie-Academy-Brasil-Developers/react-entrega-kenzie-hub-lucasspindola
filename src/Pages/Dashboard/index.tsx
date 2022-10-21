@@ -5,9 +5,17 @@ import { ListOfTechnologies } from "../../Components/ListOfTechnologies";
 import { TechsContext } from "../../Contexts/TechsContext";
 import { useContext } from "react";
 
-export const Dashboard = ({ modalRegister, setModalRegister }) => {
-  const { logout, token, userData } = useContext(TechsContext);
+export interface iTechnologyRegister {
+  setModalRegister: React.Dispatch<React.SetStateAction<boolean>>;
+  modalRegister: boolean;
+}
 
+export const Dashboard = ({
+  modalRegister,
+  setModalRegister,
+}: iTechnologyRegister) => {
+  const { logout, token, userData, courseModule } = useContext(TechsContext);
+  let userName = userData.replace(/'/g, "");
   return (
     <>
       {token ? (
@@ -17,8 +25,8 @@ export const Dashboard = ({ modalRegister, setModalRegister }) => {
             <button onClick={() => logout()}>Sair</button>
           </header>
           <div className="containerInformationsProfile">
-            <h2>Olá, {userData}</h2>
-            <p className="moduleUser">{userData.course_module}</p>
+            <h2>Olá, {userData.replace(/'/g, "")}</h2>
+            <p className="moduleUser">{courseModule}</p>
           </div>
           <div className="containerTitleUl">
             <span>Tecnologias</span>

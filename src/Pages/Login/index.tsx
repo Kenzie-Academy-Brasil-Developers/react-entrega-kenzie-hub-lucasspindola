@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import logo from "../../Assets/Logo.png";
 import { useContext } from "react";
-import { UserContext } from "../../Contexts/UserContext";
+import { iLogin, iUserContext, UserContext } from "../../Contexts/UserContext";
 
 const schema = yup.object().shape({
   email: yup
@@ -15,12 +15,12 @@ const schema = yup.object().shape({
   password: yup.string().required("Campo Obrigatório!"),
 });
 export const Login = () => {
-  const { loginUser } = useContext(UserContext);
+  const { loginUser } = useContext<iUserContext>(UserContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<iLogin>({
     resolver: yupResolver(schema),
   });
 
@@ -55,9 +55,7 @@ export const Login = () => {
             />
             {<p>{errors.password?.message}</p>}
             <button className="btnLogin">Entrar</button>
-            <p className="ancoraLinkRegister" href="f">
-              Ainda não possui uma conta?
-            </p>
+            <p className="ancoraLinkRegister">Ainda não possui uma conta?</p>
           </form>
           <div className="containerBtnRedirectRegister">
             <button

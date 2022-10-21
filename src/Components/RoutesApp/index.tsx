@@ -1,9 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Register } from "../../Pages/Register";
 import { Login } from "../../Pages/Login";
-import { Dashboard } from "../../Pages/Dashboard";
+import { Dashboard, iTechnologyRegister } from "../../Pages/Dashboard";
 
-export const RoutesApp = ({ modalRegister, setModalRegister }) => {
+export const RoutesApp = ({
+  modalRegister,
+  setModalRegister,
+}: iTechnologyRegister) => {
   return (
     <Routes>
       <Route path="/" element={<Navigate to={"/login"} />} />

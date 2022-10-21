@@ -4,13 +4,46 @@ import { useNavigate } from "react-router-dom";
 
 import logo from "../../Assets/Logo.png";
 import { useContext } from "react";
-import { UserContext } from "../../Contexts/UserContext";
+import { iRegisterUser, UserContext } from "../../Contexts/UserContext";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
+const testPassword = new RegExp(
+  "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+);
+const schema = yup.object().shape({
+  name: yup.string().required("Campo Obrigatório!"),
+  email: yup
+    .string()
+    .required("Campo Obrigatório!")
+    .email("Digite um email valido"),
+  password: yup
+    .string()
+    .required("Campo Obrigatório!")
+    .matches(
+      testPassword,
+      "E necessário no mínimo 8 dígitos, uma letra maiúsculos, uma minúscula e um caractere especial"
+    ),
+  passwordConfirm: yup
+    .string()
+    .required("Campo Obrigatório!")
+    .oneOf([yup.ref("password"), null], "As senhas precisam ser iguais!"),
+  bio: yup.string().required("Campo Obrigatório!"),
+  contact: yup.string().required("Campo Obrigatório!"),
+});
 export const Register = () => {
   const navigate = useNavigate();
 
-  const { handleSubmit, registerUser, register, errors } =
-    useContext(UserContext);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<iRegisterUser>({
+    resolver: yupResolver(schema),
+  });
+
+  const { registerUser } = useContext(UserContext);
   return (
     <RegisterContainer>
       <div className="containerLogoAndBtnReturn">
@@ -75,7 +108,7 @@ export const Register = () => {
           />
           {<p>{errors.contact?.message}</p>}
           <label htmlFor="course_module">Selecionar módulo</label>
-          <select name="" id="course_module" {...register("course_module")}>
+          <select id="course_module" {...register("course_module")}>
             <option value="Primeiro módulo (Introdução ao Frontend)">
               Primeiro módulo (Introdução ao Frontend)
             </option>

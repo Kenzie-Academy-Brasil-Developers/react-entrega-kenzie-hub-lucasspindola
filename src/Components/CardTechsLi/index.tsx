@@ -1,8 +1,14 @@
 import { HiOutlineTrash } from "react-icons/hi";
 import axios from "axios";
 import { toast } from "react-toastify";
-export const CardTechLi = ({ tech }) => {
-  const techDelete = async (id) => {
+import { iTechProps } from "../ListOfTechnologies";
+
+interface iPropsList {
+  tech: iTechProps;
+}
+export const CardTechLi = ({ tech }: iPropsList) => {
+  // console.log(tech);
+  const techDelete = async (id: string) => {
     const token = window.localStorage.getItem("authToken");
     await axios
       .delete(`https://kenziehub.herokuapp.com/users/techs/${id}`, {
@@ -11,11 +17,9 @@ export const CardTechLi = ({ tech }) => {
         },
       })
       .then((res) => {
-        // console.log(res);
         res && toast.success("Deletado com sucesso!");
       })
       .catch((err) => {
-        // console.log(err);
         err && toast.error("Ops, houve um erro, tente novamente!");
       });
   };
