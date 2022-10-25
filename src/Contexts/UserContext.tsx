@@ -7,6 +7,24 @@ import { toast } from "react-toastify";
 interface iUserContextProps {
   children: ReactNode;
 }
+
+export interface iLoginResponse {
+  id: string;
+  name: string;
+  email: string;
+  course_module: string;
+  bio: string;
+  contact: string;
+  created_at: string;
+  updated_at: string;
+  techs: [];
+  works: [];
+  avatar_url: null;
+}
+interface iLoginToken {
+  token: string;
+  user: iLoginResponse;
+}
 export interface iRegisterUser {
   email: string;
   password: string;
@@ -57,11 +75,12 @@ export const UserContextProvider = ({ children }: iUserContextProps) => {
 
   const loginUser = (data: iLogin) => {
     axios
-      .post("https://kenziehub.herokuapp.com/sessions", data)
+      .post<iLoginToken>("https://kenziehub.herokuapp.com/sessions", data)
       .then((res) => {
-        console.log(res.data.user.name);
-        window.localStorage.clear();
-        // console.log(res.data.user.course_module);
+        console.log(res.data);
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("@user-kenzieHub");
+        localStorage.removeItem("course_module");
         window.localStorage.setItem(
           "@user-kenzieHub",
           JSON.stringify(res.data.user.name)
@@ -97,9 +116,8 @@ export const UserContextProvider = ({ children }: iUserContextProps) => {
 
   const registerUser = (data: iRegisterUser) => {
     axios
-      .post("https://kenziehub.herokuapp.com/users", data)
+      .post<iLoginResponse>("https://kenziehub.herokuapp.com/users", data)
       .then((response) => {
-        // console.log(response.data);
         navigate("/login");
         sucessRegister("Registro realizado com sucesso!");
       })

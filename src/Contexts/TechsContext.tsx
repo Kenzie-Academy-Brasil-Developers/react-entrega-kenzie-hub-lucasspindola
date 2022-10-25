@@ -3,12 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useEffect } from "react";
+import { iLoginResponse } from "./UserContext";
 interface iTechsContextsProps {
   children: ReactNode;
 }
+
+interface iTech {
+  created_at: string;
+  id: string;
+  status: string;
+  title: string;
+  updated_at: string;
+}
 interface iTechContext {
   logout: () => void;
-  dataUserTechs: [];
+  dataUserTechs: iTech[];
   setDataUserTechs: React.Dispatch<React.SetStateAction<[]>>;
   token: string;
   userData: string;
@@ -27,27 +36,30 @@ export const TechsContextProvider = ({ children }: iTechsContextsProps) => {
   const navigate = useNavigate();
   const logout = () => {
     window.localStorage.removeItem("authToken");
-    window.localStorage.removeItem("user-kenzieHub");
+    window.localStorage.removeItem("@user-kenzieHub");
+    localStorage.removeItem("course_module");
     navigate("/login");
     sucessLogout("Sua sessão foi encerrada com sucesso!");
   };
 
-  // ListOfTechnologies
-  const [dataUserTechs, setDataUserTechs] = useState<[]>([]);
+  // interface IupdateList {
+  //   iLoginrespo
 
+  // }
+  const [dataUserTechs, setDataUserTechs] = useState<[]>([]);
   useEffect(() => {
     function updatedList() {
       const token = window.localStorage.getItem("authToken");
 
       token &&
         axios
-          .get(`https://kenziehub.herokuapp.com/profile`, {
+          .get<iLoginResponse>(`https://kenziehub.herokuapp.com/profile`, {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
           })
-          .then((res: any) => {
+          .then((res) => {
             setDataUserTechs(res.data.techs);
           })
           .catch((err) => {});

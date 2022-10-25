@@ -6,6 +6,15 @@ import { toast } from "react-toastify";
 interface iTechnologyRegister {
   setModalRegister: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+interface iNewTechResponse {
+  created_at: string;
+  id: string;
+  status: string;
+  title: string;
+  updated_at: string;
+}
+
 export const TechnologyRegister = ({
   setModalRegister,
 }: iTechnologyRegister) => {
@@ -19,17 +28,19 @@ export const TechnologyRegister = ({
     title: string;
   }
 
-  // const { dataUserTechs, setDataUserTechs } = useContext(TechsContext);
   const newTech = (dataTech: iNewTech) => {
     const token = window.localStorage.getItem("authToken");
-    // setDataUserTechs(...dataUserTechs)
     axios
-      .post("https://kenziehub.herokuapp.com/users/techs", dataTech, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post<iNewTechResponse>(
+        "https://kenziehub.herokuapp.com/users/techs",
+        dataTech,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         res && toast.success("Cadastro realizado com sucesso!");
         setModalRegister(false);
