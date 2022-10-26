@@ -8,7 +8,7 @@ interface iTechsContextsProps {
   children: ReactNode;
 }
 
-interface iTech {
+export interface iTech {
   created_at: string;
   id: string;
   status: string;
@@ -18,7 +18,7 @@ interface iTech {
 interface iTechContext {
   logout: () => void;
   dataUserTechs: iTech[];
-  setDataUserTechs: React.Dispatch<React.SetStateAction<[]>>;
+  setDataUserTechs: React.Dispatch<React.SetStateAction<iTech[]>>;
   token: string;
   userData: string;
   courseModule: string;
@@ -33,20 +33,10 @@ export const TechsContextProvider = ({ children }: iTechsContextsProps) => {
   const sucessLogout = (message: string) => {
     toast.success(message);
   };
+  // iTech
+  const [dataUserTechs, setDataUserTechs] = useState<iTech[]>([]);
   const navigate = useNavigate();
-  const logout = () => {
-    window.localStorage.removeItem("authToken");
-    window.localStorage.removeItem("@user-kenzieHub");
-    localStorage.removeItem("course_module");
-    navigate("/login");
-    sucessLogout("Sua sessão foi encerrada com sucesso!");
-  };
 
-  // interface IupdateList {
-  //   iLoginrespo
-
-  // }
-  const [dataUserTechs, setDataUserTechs] = useState<[]>([]);
   useEffect(() => {
     function updatedList() {
       const token = window.localStorage.getItem("authToken");
@@ -66,6 +56,14 @@ export const TechsContextProvider = ({ children }: iTechsContextsProps) => {
     }
     updatedList();
   }, [dataUserTechs]);
+
+  const logout = () => {
+    window.localStorage.removeItem("authToken");
+    window.localStorage.removeItem("@user-kenzieHub");
+    localStorage.removeItem("course_module");
+    navigate("/login");
+    sucessLogout("Sua sessão foi encerrada com sucesso!");
+  };
 
   return (
     <TechsContext.Provider

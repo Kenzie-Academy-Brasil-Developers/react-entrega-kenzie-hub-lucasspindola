@@ -25,7 +25,7 @@ export const Login = () => {
   });
 
   const navigate = useNavigate();
-  // <Navigate to="/" replace />
+
   return (
     <>
       <LoginContainer>

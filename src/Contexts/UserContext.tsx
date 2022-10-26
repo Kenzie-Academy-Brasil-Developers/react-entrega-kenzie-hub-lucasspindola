@@ -1,13 +1,21 @@
 import React, { ReactNode, createContext, useEffect } from "react";
-
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { iTech } from "./TechsContext";
 
 interface iUserContextProps {
   children: ReactNode;
 }
 
+interface iWorks {
+  id: string;
+  title: string;
+  description: string;
+  deploy_url: string;
+  created_at: string;
+  updated_at: string;
+}
 export interface iLoginResponse {
   id: string;
   name: string;
@@ -17,8 +25,8 @@ export interface iLoginResponse {
   contact: string;
   created_at: string;
   updated_at: string;
-  techs: [];
-  works: [];
+  techs: iTech[];
+  works: iWorks[];
   avatar_url: null;
 }
 interface iLoginToken {

@@ -4,7 +4,6 @@ import "react-toastify/dist/ReactToastify.min.css";
 import { ToastContainer } from "react-toastify";
 import { RoutesApp } from "./Components/RoutesApp";
 import { TechnologyRegister } from "./Components/TechnologyRegister";
-
 import { useState } from "react";
 function App() {
   const [modalRegister, setModalRegister] = useState<boolean>(false);
