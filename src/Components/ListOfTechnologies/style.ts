@@ -19,8 +19,17 @@ export const LiTech = styled.ul`
     width: 90%;
     margin: 0 5%;
     background-color: rgba(18, 18, 20, 1);
+    div {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+    }
     button {
-      display: none;
+      display: flex;
+      background-color: transparent;
+      color: #fff;
+      border: none;
+      cursor: pointer;
     }
   }
 
