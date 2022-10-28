@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useEffect } from "react";
 import { iLoginResponse } from "./UserContext";
+
 interface iTechsContextsProps {
   children: ReactNode;
 }
@@ -22,45 +23,45 @@ interface iTechContext {
   token: string;
   userData: string;
   courseModule: string;
+  setBoleean: React.Dispatch<React.SetStateAction<boolean>>;
+  updatedList: () => Promise<void>;
 }
 export const TechsContext = createContext<iTechContext>({} as iTechContext);
 
 export const TechsContextProvider = ({ children }: iTechsContextsProps) => {
   const token = window.localStorage.getItem("authToken") || "";
   const userData = localStorage.getItem("@user-kenzieHub") || "";
-
   const courseModule = localStorage.getItem("course_module") || "";
+  const navigate = useNavigate();
+  const [dataUserTechs, setDataUserTechs] = useState<iTech[]>([]);
+  const [boleeanA, setBoleean] = useState<boolean>(true);
+
   const sucessLogout = (message: string) => {
     toast.success(message);
   };
-  // iTech
-  const [dataUserTechs, setDataUserTechs] = useState<iTech[]>([]);
-  const navigate = useNavigate();
+
+  async function updatedList() {
+    const token = window.localStorage.getItem("authToken");
+    token &&
+      (await axios
+        .get<iLoginResponse>(`https://kenziehub.herokuapp.com/profile`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setDataUserTechs(res.data.techs);
+        })
+        .catch((err) => {}));
+  }
 
   useEffect(() => {
-    function updatedList() {
-      const token = window.localStorage.getItem("authToken");
-
-      token &&
-        axios
-          .get<iLoginResponse>(`https://kenziehub.herokuapp.com/profile`, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((res) => {
-            setDataUserTechs(res.data.techs);
-          })
-          .catch((err) => {});
-    }
     updatedList();
-  }, [dataUserTechs]);
+  }, [boleeanA]);
 
   const logout = () => {
     window.localStorage.removeItem("authToken");
-    window.localStorage.removeItem("@user-kenzieHub");
-    localStorage.removeItem("course_module");
     navigate("/login");
     sucessLogout("Sua sessão foi encerrada com sucesso!");
   };
@@ -74,6 +75,8 @@ export const TechsContextProvider = ({ children }: iTechsContextsProps) => {
         dataUserTechs,
         setDataUserTechs,
         courseModule,
+        setBoleean,
+        updatedList,
       }}
     >
       {children}

@@ -2,6 +2,9 @@ import { ContainerRegisterTech, Container } from "./style";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { UserContext } from "../../Contexts/UserContext";
+import { TechsContext } from "../../Contexts/TechsContext";
 
 interface iTechnologyRegister {
   setModalRegister: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,7 +30,7 @@ export const TechnologyRegister = ({
     status: string;
     title: string;
   }
-
+  const { setBoleean } = useContext(TechsContext);
   const newTech = (dataTech: iNewTech) => {
     const token = window.localStorage.getItem("authToken");
     axios
@@ -44,6 +47,7 @@ export const TechnologyRegister = ({
       .then((res) => {
         res && toast.success("Cadastro realizado com sucesso!");
         setModalRegister(false);
+        setBoleean((old) => !old);
       })
       .catch((err) => {
         err.name &&

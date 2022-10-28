@@ -33,6 +33,9 @@ export const ContainerRegisterTech = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+    select {
+      cursor: pointer;
+    }
   }
   input {
     background-color: rgba(52, 59, 65, 1);
@@ -61,6 +64,7 @@ export const ContainerRegisterTech = styled.div`
     font-weight: 700;
   }
   .btnExitRegister {
+    cursor: pointer;
     margin: 0 5%;
     background-color: transparent;
     border: none;

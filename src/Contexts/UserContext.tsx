@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext, useEffect } from "react";
+import React, { ReactNode, createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -46,21 +46,23 @@ export interface iLogin {
   email: string;
   password: string;
 }
-// interface iDataUser {
-
-// }
 
 export interface iUserContext {
   loginUser: (data: iLogin) => void;
   registerUser: (data: iRegisterUser) => void;
+  userAllData: iLoginResponse;
 }
 export const UserContext = createContext({} as iUserContext);
 
 export const UserContextProvider = ({ children }: iUserContextProps) => {
+  const [userAllData, setUserAllData] = useState<iLoginResponse>(
+    {} as iLoginResponse
+  );
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => {
+    async function updateUser() {
       const token = window.localStorage.getItem("authToken");
       if (token) {
         try {
@@ -71,37 +73,27 @@ export const UserContextProvider = ({ children }: iUserContextProps) => {
                 Authorization: `Bearer ${token}`,
               },
             })
-            .then(() => navigate("/dashboard"));
+            .then((res) => {
+              setUserAllData(res.data);
+              navigate("/dashboard");
+            });
         } catch (error) {
           localStorage.removeItem("authToken");
           navigate("/");
         }
       }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    }
+    updateUser();
+  }, [navigate]);
 
   const loginUser = (data: iLogin) => {
     axios
       .post<iLoginToken>("https://kenziehub.herokuapp.com/sessions", data)
       .then((res) => {
-        console.log(res.data);
         localStorage.removeItem("authToken");
-        localStorage.removeItem("@user-kenzieHub");
-        localStorage.removeItem("course_module");
-        window.localStorage.setItem(
-          "@user-kenzieHub",
-          JSON.stringify(res.data.user.name)
-        );
-
         window.localStorage.setItem("authToken", res.data.token);
         res.data.token && toast.success("Login realizado com sucesso!");
         navigate("/dashboard");
-
-        window.localStorage.setItem(
-          "course_module",
-          JSON.stringify(res.data.user.course_module)
-        );
       })
 
       .catch((err) => {
@@ -139,6 +131,7 @@ export const UserContextProvider = ({ children }: iUserContextProps) => {
       value={{
         loginUser,
         registerUser,
+        userAllData,
       }}
     >
       {children}

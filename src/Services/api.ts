@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const apiBaseKenzieHub = axios.create({
+const api = axios.create({
   baseURL: "https://kenziehub.herokuapp.com",
   timeout: 15000,
 });
+
+export default api;

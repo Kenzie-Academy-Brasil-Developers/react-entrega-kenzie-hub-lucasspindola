@@ -2,12 +2,15 @@ import { HiOutlineTrash } from "react-icons/hi";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { iTechProps } from "../ListOfTechnologies";
+import { useContext } from "react";
+import { TechsContext } from "../../Contexts/TechsContext";
 
 interface iPropsList {
   tech: iTechProps;
 }
+
 export const CardTechLi = ({ tech }: iPropsList) => {
-  // console.log(tech);
+  const { setBoleean } = useContext(TechsContext);
   const techDelete = async (id: string) => {
     const token = window.localStorage.getItem("authToken");
     await axios
@@ -17,6 +20,7 @@ export const CardTechLi = ({ tech }: iPropsList) => {
         },
       })
       .then((res) => {
+        setBoleean((old) => !old);
         res && toast.success("Deletado com sucesso!");
       })
       .catch((err) => {

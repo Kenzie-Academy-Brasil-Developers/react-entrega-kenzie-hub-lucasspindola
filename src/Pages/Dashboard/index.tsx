@@ -3,7 +3,8 @@ import { Navigate } from "react-router-dom";
 import logo from "../../Assets/Logo.png";
 import { ListOfTechnologies } from "../../Components/ListOfTechnologies";
 import { TechsContext } from "../../Contexts/TechsContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../Contexts/UserContext";
 
 export interface iTechnologyRegister {
   setModalRegister: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,9 +15,11 @@ export const Dashboard = ({
   modalRegister,
   setModalRegister,
 }: iTechnologyRegister) => {
-  const { logout, token, userData, courseModule } = useContext(TechsContext);
-  // let userName = userData.replace(/'/g, "");
-
+  const { logout, token, updatedList } = useContext(TechsContext);
+  const { userAllData } = useContext(UserContext);
+  useEffect(() => {
+    updatedList();
+  }, []);
   return (
     <>
       {token ? (
@@ -25,9 +28,10 @@ export const Dashboard = ({
             <img src={logo} alt="oi"></img>
             <button onClick={() => logout()}>Sair</button>
           </header>
+
           <div className="containerInformationsProfile">
-            <h2>Olá, {JSON.parse(userData)}</h2>
-            <p className="moduleUser">{JSON.parse(courseModule)}</p>
+            <h2>Olá, {userAllData.name}</h2>
+            <p className="moduleUser">{userAllData.course_module}</p>
           </div>
           <div className="containerTitleUl">
             <span>Tecnologias</span>
