@@ -9,28 +9,27 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-const testPassword = new RegExp(
-  "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
-);
+const testPassword = new RegExp("^(?=.*\\d).{8,}$");
+
 const schema = yup.object().shape({
-  name: yup.string().required("Campo Obrigatório!"),
+  name: yup.string().required("Campo obrigatório!"),
   email: yup
     .string()
-    .required("Campo Obrigatório!")
-    .email("Digite um email valido"),
+    .required("Campo obrigatório!")
+    .email("Digite um email válido"),
   password: yup
     .string()
-    .required("Campo Obrigatório!")
+    .required("Campo obrigatório!")
     .matches(
       testPassword,
-      "E necessário no mínimo 8 dígitos, uma letra maiúsculos, uma minúscula e um caractere especial"
+      "São obrigatórios pelo menos 8 caracteres, sendo pelo menos um numero."
     ),
   passwordConfirm: yup
     .string()
-    .required("Campo Obrigatório!")
-    .oneOf([yup.ref("password"), null], "As senhas precisam ser iguais!"),
-  bio: yup.string().required("Campo Obrigatório!"),
-  contact: yup.string().required("Campo Obrigatório!"),
+    .required("Campo obrigatório!")
+    .oneOf([yup.ref("password"), null], "É necessário que as senhas sejam idênticas."),
+  bio: yup.string().required("Campo obrigatório!"),
+  contact: yup.string().required("Campo obrigatório!"),
 });
 export const Register = () => {
   const navigate = useNavigate();
@@ -87,7 +86,7 @@ export const Register = () => {
           <input
             id="passwordConfirm"
             placeholder="Confirme aqui sua senha"
-            type="text"
+            type="password"
             {...register("passwordConfirm")}
           />
           {<p>{errors.passwordConfirm?.message}</p>}

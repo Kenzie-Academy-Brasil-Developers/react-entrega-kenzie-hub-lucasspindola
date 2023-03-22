@@ -10,8 +10,8 @@ import { iLogin, iUserContext, UserContext } from "../../Contexts/UserContext";
 const schema = yup.object().shape({
   email: yup
     .string()
-    .required("Campo Obrigatório!")
-    .email("Digite um email valido!"),
+    .required("Campo obrigatório!")
+    .email("Digite um email que possua um cadastro!"),
   password: yup.string().required("Campo Obrigatório!"),
 });
 export const Login = () => {
